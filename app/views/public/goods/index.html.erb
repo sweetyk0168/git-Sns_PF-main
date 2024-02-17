@@ -1,0 +1,28 @@
+<!-- グッズ情報一覧画面 -->
+<div class="container">
+  <div class="bg-light">
+    <h3 class="mb-0">イベントグッズ一覧</h3><br>
+      <div class="row justify-content-center">
+        <div class="card-deck">
+          <% @event_goods.each do | good | %>
+            <div class="col-4">
+              <%= link_to event_good_path(good.event.id, good.id) do %>
+                <div class="w-50 mx-auto">
+                  <!--<div class="card-header p-0">-->
+                  <%= image_tag good.get_image(100,100) %>
+                    <%#= image_tag good.image.variant(resize_to_limit: [100, 100]).processed if good.image.attached? %>
+                  <!--</div>-->
+                </div>
+              <% end %>
+              <div class="card-body d-flex align-items-center">
+                <p class="card-title text-center">
+                  <%= good.name %><br>
+                  ￥<%= good.price.to_s(:delimited, delimiter: ',') %>
+                </p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>

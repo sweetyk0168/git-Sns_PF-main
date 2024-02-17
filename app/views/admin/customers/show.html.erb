@@ -1,0 +1,54 @@
+<!-- SNSユーザー情報詳細画面 -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="mt-3">■<%= @customers.last_name %><% @customers.first_name %>さんの会員詳細</h3>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="table-dark">会員ID</th>
+                <td><%= @customers.id %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">氏名</th>
+                <td><%= @customers.last_name %><%= @customers.first_name %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">フリガナ</th>
+                <td> <%= @customers.last_name_kana %><%= @customers.first_name_kana %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">郵便番号</th>
+                <td><%= @customers.postal_code %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">住所</th>
+                <td><%= @customers.address %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">電話番号</th>
+                <td><%= @customers.telephone_number %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">メールアドレス</th>
+                <td><%= @customers.email %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">会員ステータス</th>
+                <td>
+                  <% if @customers.is_deleted %>
+                    無効
+                  <% else %>
+                    有効
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <%= link_to "編集する", edit_admin_customer_path(@customers), class:"btn btn-success" %>
+        <%= link_to "注文履歴一覧", admin_ticket_orders_path, class:"btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

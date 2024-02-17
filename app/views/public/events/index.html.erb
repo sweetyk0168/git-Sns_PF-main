@@ -1,0 +1,18 @@
+<!-- イベント情報一覧画面 -->
+<div class="container py-5">
+  <div class="bg-light">
+    <h3>■イベントNEWS</h3>
+      <% @events.each do |event| %>
+        <div class="w-50 mx-auto mt-4 shadow-lg">
+          <div class="body">
+            <div class="row">
+              <div class="col-9">
+                <%= event.created_at.strftime("%Y/%m/%d") %><br>
+                <%= link_to event.name, event_path(event.id) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+  </div>
+</div>

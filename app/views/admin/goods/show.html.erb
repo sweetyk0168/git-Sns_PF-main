@@ -1,0 +1,31 @@
+<!-- グッズ情報詳細画面 -->
+<div><%= flash[:notice] %></div>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="my-3">■グッズ情報詳細</h3>
+        <div class="mt-3">
+          <%= image_tag @good.get_image(100,100) %>
+        </div>
+
+        <label>グッズ名</label>
+        <%= @good.name %><br>
+        <label>価格</label>
+        ￥<%= @good.price.to_s(:delimited, delimiter: ',') %><br>
+        <label>グッズ説明</label>
+        <%= @good.introduction %><br>
+        <label>投稿ステータス</label>
+        <% if @good.post_status == true %>
+          投稿中
+        <% else %>
+  　      投稿完了
+        <% end %>
+
+        <div>
+          <%= link_to '編集する',  edit_admin_event_good_path(@good.id), class:"btn btn-success" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

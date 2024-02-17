@@ -1,0 +1,71 @@
+<!-- イベントチケット新規登録画面 -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="p-4 mb-0">＜イベントチケット新規登録＞</h3>
+          <div class="form-body p-4">
+            <% if @event_ticket.errors.any? %>
+              <%= @event_ticket.errors.count %>errors occurred
+                <ul>
+                  <% @event_ticket.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+            <% end %>
+            <%= form_with model: @event_ticket, url:admin_event_event_tickets_path do |f| %>
+                <%= f.label :'■イベントタイトル名' %>
+                <%= f.text_field :event_title, class:"form-control", autofocus: true, placeholder: "イベントタイトル名を入力してください" %>
+
+                <div class="mt-3">
+                  <%= f.label :'■イベントチケット名' %>
+                  <%= f.text_field :ticket_name, class:"form-control", placeholder: "イベントチケット名を入力してください" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.label :'■イベントチケット販売開始日' %>
+                  <%= f.text_field :ticket_startday, class:"form-control", placeholder: "イベント開始日を入力してください" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.label :'■イベントチケット販売終了日' %>
+                  <%= f.text_field :ticket_endday,  class:"form-control", placeholder: "イベント終了日を入力してください" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.label :'■イベント会場名' %>
+                  <%= f.text_field :ticket_place, class:"form-control", placeholder: "イベント会場名を入力してください" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.label :"■イベント公演日" %>
+                  <%= f.text_field:performance_date, class:"form-control", placeholder: "イベント公演日を入力してください" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.label :'■イベントチケット説明文' %>
+                  <%= f.text_area :ticket_introduction, class:"form-control", placeholder: "イベントチケット説明文を入力してください" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.label :'■税抜き価格' %>
+                  <%= f.text_field :ticket_price, class:"form-control", placeholder: "税抜き価格を入力してください" %>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.label :'■販売ステータス' %><br>
+                  <%= f.radio_button :sales_status, true %>
+                  <%= f.label:sales_status, "販売中", {value: :true,style: "display: inline-block;"} %>
+                  <%= f.radio_button :sales_status, false %>
+                  <%= f.label:sales_status, "販売停止中", {value: :false,style: "display: inline-block;"} %><br>
+                </div>
+
+                <div class="mt-3">
+                  <%= f.submit '新規登録', class:"btn btn-success" %>
+                </div>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<!-- グッズ情報編集画面 -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="text-dark bg-light p-4 mb-0">■グッズ情報編集</h3>
+          <% if @good.errors.any? %>
+            <%= @good.errors.count %>errors occurred
+              <ul>
+                <% @good.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+          <% end %>
+          <div class="form-body p-4">
+            <%= form_with model:@good, url:admin_event_good_path(@good) do |f| %>
+              <%= f.label :"■グッズ画像" %>
+              <div class="mb-3">
+                <%= f.file_field :image, accept: "/image/*", class: "w-100" %><br>
+              </div>
+              <%= f.label :"■グッズ名" %>
+              <%= f.text_field :name, class:"form-control", autofocus:true %><br>
+              <%= f.label :"■価格" %>
+              <%= f.text_field :price, class:"form-control" %><br>
+              <%= f.label :"■グッズ説明" %>
+              <%= f.text_area :introduction, rows:"3", class:"form-control" %><br>
+              <%= f.label :"■投稿ステータス" %><br>
+              <%= f.radio_button :post_status, true %>
+              <%= f.label :post_status, "投稿中", { value: :true, style: "display: inline-block;" } %>
+              <%= f.radio_button :post_status, false %>
+              <%= f.label :post_status, "投稿完了", { value: :false, style: "display: inline-block;" } %><br>
+
+              <%= f.submit '変更を保存', class:"btn btn-success" %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

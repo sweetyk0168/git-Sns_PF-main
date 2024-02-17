@@ -1,0 +1,41 @@
+<!-- イベントチケット一覧画面 -->
+<div class="container">
+  <div class="row no-gutters">
+  	<div class="bg-light py-5 px-5">
+  		<div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+    		<h3 class="p-4 my-3">■〇〇イベントチケット情報</h3>
+		  	<table class="table table-hover">
+  				<thead>
+    				<tr>
+      				<th>公演名</th>
+      				<th>販売期間</th>
+      				<th>公演会場</th>
+      				<th></th>
+      				<th></th>
+    				</tr>
+  				</thead>
+  				<tbody>
+    				<% @event_tickets.each do |event_ticket| %>
+      				<tr>
+				        <td><%= event_ticket.ticket_name %></td>
+				        <td><%= event_ticket.ticket_startday %>～<%= event_ticket.ticket_endday %></td>
+				        <td><%= event_ticket.ticket_place %></td>
+				        <td>
+					      	<% if event_ticket.sales_status == true %>
+					        	<p class="text-danger">販売中</p>
+					        <% else %>
+					          <p class="text-secondary">販売終了</p>
+					        <% end %>
+        				</td>
+				        <td>
+				          <%= link_to '詳細へ',  event_event_ticket_path(event_ticket.event_id, event_ticket.id) , class:"btn btn-primary" %>
+				        </td>
+				      </tr>
+				    <% end %>
+  				</tbody>
+		  	</table>
+  		</div>
+		<%= paginate @event_tickets %>
+    </div>
+  </div>
+</div>

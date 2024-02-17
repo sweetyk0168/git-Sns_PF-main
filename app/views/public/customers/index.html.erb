@@ -1,0 +1,105 @@
+<!-- マイページ -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="p-4 my-3">＜ユーザー情報＞</h3>
+
+          <div class="mb-3">
+            <%= image_tag current_customer.get_profile_image(100,100) %>
+          </div>
+
+		      <table class="table table-hover">
+  			    <tbody>
+    			    <tr>
+      				  <th class="table-dark">名前</th>
+      				  <th><%= link_to current_customer.last_name, customer_path(current_customer.id) %></th>
+    			    </tr>
+    			    <tr>
+    			      <th class="table-dark">自己紹介</th>
+    			      <th><%= current_customer.customer_introduction %></th>
+    			    </tr>
+    			    <tr>
+                <th class="table-dark">フォロー</th>
+                <td>
+                  <%= link_to follows_customer_path(current_customer) do %>
+                      <%= current_customer.followers.count %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <th class="table-dark">フォロワー</th>
+                <td>
+                    <%= link_to followers_customer_path(current_customer) do %>
+                      <%= current_customer.followeds.count %>
+                    <% end %>
+                </td>
+              </tr>
+  			    </tbody>
+		      </table>
+		      <h3>■ユーザー一覧</h3>
+          <%# if current_customer != @customer %>
+          <% if @customers.exists? %>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>イメージ</th>
+                      <th>ユーザー名</th>
+                      <th>フォロー</th>
+                      <th>フォロワー</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                    <tbody>
+                      <% @customers.each do | customer | %>
+                      <tr>
+                      <td><%= image_tag customer.get_profile_image(50,50) %></td>
+                      <td><%= customer.last_name %><%= customer.first_name %></td>
+                      <td><%= customer.followers.count %></td>
+                      <td><%= customer.followeds.count %></td>
+                      <td>
+                          <% if current_customer.following?(customer) %>
+            		            <%= link_to "フォロー外す", customer_relationships_path(customer.id), method: :delete, class:"btn btn-danger" %>
+            		           <% else %>
+            		            <%= link_to "フォローする", customer_relationships_path(customer.id), method: :post, class:"btn btn-success" %>
+            		           <% end %>
+            		      </td>
+            		      </tr>
+            		      <% end %>
+                  </tbody>
+                </table>
+              <%# end %>
+            <% else %>
+              <p>ユーザーはいません</p>
+            <% end %>
+	        <%# end %>
+		      <h3>♡いいね一覧</h3>
+		      <table class="table table-hover">
+  				  <thead>
+    				  <tr>
+      					<th class="table-dark">投稿者名</th>
+      					<th class="table-dark">タイトル</th>
+    				  </tr>
+  				  </thead>
+  			    <tbody>
+  			      <% if @favorites.present? %>
+  			        <% @favorites.each do |favorite| %>
+      				    <tr>
+        				    <td><%= favorite.post.customer.last_name %></td>
+        				    <td>
+          					    <%= link_to post_path(favorite.post) do %>
+            					    <%= favorite.post.title %>
+          					    <% end %>
+        				    </td>
+      				    </tr>
+    			      <% end %>
+  			      <% else %>
+  			        <p>まだいいねがありません</p>
+  			      <% end %>
+    			    <!--<p>コメント数:<%#= @post.post_comments.count %></p>-->
+  			    </tbody>
+		      </table>
+      </div>
+    </div>
+  </div>
+</div>

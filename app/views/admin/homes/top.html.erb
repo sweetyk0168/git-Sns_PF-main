@@ -1,0 +1,39 @@
+<!-- トップページ -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="p-1 my-2">イベント情報一覧</h3>
+        <div class="mb-3">
+          <%= link_to '新規作成はこちらから' , new_admin_event_path, class:"btn btn-primary" %>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>イベント名</th>
+              <th>ジャンル</th>
+              <th>投稿状況</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @events.each do |event| %>
+              <tr>
+                <td><%= event.id %></td>
+                <td><%= link_to event.name, admin_event_path(event) %></td>
+                <td><%= event.genre.name %></td>
+                <td>
+                  <% if event.post_status %>
+                    投稿中
+                  <% else %>
+                    投稿完了
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

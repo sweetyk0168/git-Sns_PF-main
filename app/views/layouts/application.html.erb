@@ -1,0 +1,47 @@
+<!-- SNSユーザー側ヘッダー -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Special Event</title>
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1">-->
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="shadow-sm" style="background-color: black;">
+      <!--<div class ="image" style="background-image: url('/assets/live.jpg'); background-position: bottom;">-->
+        <!--<div>Logo created by <a href="https://www.designevo.com/" title="Free Online Logo Maker">DesignEvo logo maker</a></div>-->
+        <div class ="container">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <%= link_to root_path do %>
+              <%= image_tag asset_path('logo-transparent.png'), size: '150x150' %>
+            <% end %>
+            <ul class="navbar-nav ml-auto">
+             <% if customer_signed_in? %>
+                <li class="nav-item"><p class="text-light nav-link">ようこそ！<%= current_customer.last_name %>さん！</p></li>
+                <li class="nav-item"><%= link_to "投稿フォーム", new_post_path, class: 'nav-link text-light' %></li>
+                <li class="nav-item"><%= link_to "投稿一覧", posts_path,  class: 'nav-link text-light' %></li>
+                <li class="nav-item"><%= link_to "通知一覧", notifications_path,  class: 'nav-link text-light' %></li>
+                <li class="nav-item"><%= link_to "マイページ", customers_path,  class: 'nav-link text-light' %></li>
+                <li class="nav-item"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete,  class: 'nav-link text-light' %></li>
+             <% end %>
+            </ul>
+          </nav>
+      </div>
+    </header>
+    <div class ="image">
+      <main class="mb-auto">
+        <div class="d-flex justify-content-center mb-2">
+          <%= render "public/searches/form" %>
+        </div>
+        <%= yield %>
+      </main>
+    </div>
+   </div>
+  </body>
+</html>

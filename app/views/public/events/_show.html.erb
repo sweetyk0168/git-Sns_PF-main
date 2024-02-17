@@ -1,0 +1,12 @@
+<!-- イベント情報詳細画面 -->
+<%= safe_join(event.introduction.split("\n"),tag(:br)) %><br>
+<%= link_to event.url_strings, event_event_tickets_path(event.id) %><br>
+<!--<%#= link_to @event.url_strings, events_path(@event.id) %><br>-->
+<% if event.goods.present? %>
+  <div class="mt-3">
+    <p>▼グッズ情報はこちらから</p>
+    <%= link_to "グッズ情報", event_goods_path(event.id) %>
+  </div>
+<% else %>
+  <p>投稿一覧画面にてイベントレポート情報をご覧ください。</p>
+<% end %>

@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="p-4 my-3">■検索結果</h3>
+          <table class="table table-hover table-inverse">
+            <!-- 検索対象モデルがCustomerの時 -->
+            <% if @range == 'Customer' %>
+              <% if @customers.exists? %>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>ユーザー名</th>
+                    <th>フォロー</th>
+                    <th>フォロワー</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @customers.each do | customer | %>
+                    <tr>
+                      <td><%= image_tag customer.get_profile_image(50,50) %></td>
+                      <td><%= customer.last_name %><%= customer.first_name %></td>
+                      <td><%= customer.followers.count %></td>
+                      <td><%= customer.followeds.count %></td>
+                      <td>
+                        <% if current_customer.following?(customer) %>
+            		          <%= link_to "フォロー外す", customer_relationships_path(customer.id), method: :delete, class:"btn btn-danger" %>
+            		        <% else %>
+            		          <%= link_to "フォローする", customer_relationships_path(customer.id), method: :post, class:"btn btn-success" %>
+            		        <% end %>
+            		      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              <% else %>
+                <p>ユーザーはいません</p>
+              <% end %>
+            <% else %>
+              <!-- 検索対象モデルがPostの時 -->
+              <% if @posts.exists? %>
+                <thead>
+                  <tr>
+                    <th>投稿タイトル</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @posts.each do | post | %>
+                    <tr>
+                      <td><%= link_to post.title, post_path(post.id) %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              <% else %>
+                <p>投稿はありません</p>
+              <% end %>
+            <% end %>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>

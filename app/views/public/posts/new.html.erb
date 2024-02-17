@@ -1,0 +1,49 @@
+<!-- 投稿フォーム -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <div class="bg-light">
+        <h3 class="text-dark bg-light p-4 mb-0">＜投稿フォーム＞</h3>
+          <% if @post.errors.any? %>
+            <%= @post.errors.count %>errors occurred
+              <ul>
+                <% @post.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+          <% end %>
+          <div class="form-body p-4">
+            <%= form_with model:@post, url: posts_path do |f| %>
+              <%= f.label :■画像選択 %><br>
+              <%= f.file_field :image, accept:"image/*", class: "w-100" %>
+
+              <div class="mt-3">
+                <%= f.label :■投稿タイトル %><br>
+              </div>
+
+              <div class="mb-3">
+                <%= f.text_field :title,　class:"form-control", autofocus: true, autocomplete: "title", placeholder:"投稿タイトルをこちらに入力してください" %><br>
+              </div>
+
+              <%= f.label :■イベント情報、レポート %><br>
+              <div class="mb-3">
+                <%= f.collection_select :event_id, Event.all, :id, :introduction, {include_blank: "投稿されたい内容を選択してください"} %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :■イベントアンケート説明内容 %><br>
+                <%= f.collection_select :event_questionnaires_question_id, EventQuestionnairesQuestion.all, :id, :content, {include_blank: "投稿されたい内容を選択してください"} %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :■イベントレポート内容 %>
+                <%= f.text_area :body, class:"form-control", rows:"3", placeholder:"投稿されたいイベントレポート本文をこちらに入力してください" %>
+              </div>
+
+              <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

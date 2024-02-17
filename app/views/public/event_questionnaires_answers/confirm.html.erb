@@ -1,0 +1,55 @@
+<!-- アンケート回答内容確認画面 -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="p-3 my-2">■アンケート回答内容確認</h3>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="table-dark">性別</th>
+                <td><%= @event_questionnaires_answer.gender %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">Q１：〇〇イベントに参加したきっかけ</th>
+                <td><%= @event_questionnaires_answer.reason %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">Q２：〇〇イベントに対する満足度</th>
+                <td><%= @event_questionnaires_answer.satisfaction %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">Q３：〇〇イベントの満足度の理由</th>
+                <td><%= @event_questionnaires_answer.reason_for_satisfaction %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">Q４：参加決意</th>
+                <td><%= @event_questionnaires_answer.participation %></td>
+              </tr>
+              <tr>
+                <th class="table-dark">Q５：〇〇イベントに対するご意見・ご要望</th>
+                <td><%= @event_questionnaires_answer.impressions %></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="d-flex">
+            <div class="mr-3">
+        	    <%= form_with model: @event_questionnaires_answer do |f| %>
+          		  <%= f.hidden_field :gender %>
+          		  <%= f.hidden_field :reason %>
+          		  <%= f.hidden_field :satisfaction %>
+          		  <%= f.hidden_field :reason_for_satisfaction %>
+          		  <%= f.hidden_field :participation %>
+          		  <%= f.hidden_field :impressions %>
+          		  <%= f.hidden_field :event_questionnaires_question_id %>
+          	    <div>
+          			  <%= f.submit '送信', class: "btn btn-success" %>
+          		  </div>
+        	    <% end %>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+ </div>

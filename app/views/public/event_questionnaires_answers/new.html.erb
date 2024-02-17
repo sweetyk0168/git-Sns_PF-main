@@ -1,0 +1,80 @@
+<!-- イベントアンケート回答フォーム -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+    	<div class="bg-light py-5 px-5">
+    		<h3><%= @event_questionnaires_question.title %></h3>
+					<div class="mb-3">
+						<%= @event_questionnaires_question.content %>
+					</div>
+
+					<% if @event_questionnaires_answer.errors.any? %>
+	      		<%= @event_questionnaires_answer.errors.count %>errors occurred
+	        	<ul>
+	          	<% @event_questionnaires_answer.errors.full_messages.each do |message| %>
+	            	<li><%= message %></li>
+	          	<% end %>
+	        	</ul>
+	      	<% end %>
+
+				  <%= form_with model: @event_questionnaires_answer, url: confirm_event_questionnaires_answers_path, local: true do |f| %>
+				  	<div class="mb-3">
+				    	<%= f.label :'■性別' %><br>
+				     	<%= f.radio_button :gender, :"男", checked: true %>
+				      <%= f.label :"男" %>
+				      <%= f.radio_button :gender, :"女" %>
+				      <%= f.label :"女" %><br>
+				    </div>
+
+						<p>■イベントについて</p>
+				    <%= f.label :'Q１：〇〇イベントに参加したきっかけを教えてください' %>
+				    <%= f.text_area:reason, class:"form-control",autofocus:true %><br>
+
+				    <%= f.label :'Q２：〇〇イベントに対する満足度を教えてください' %><br>
+
+				   <div class="mb-3">
+				   		<%= f.radio_button :satisfaction, :"１", checked: true %>
+				   		<%= f.label :"１" %>
+				   		<%= f.radio_button :satisfaction, :"２" %>
+				   		<%= f.label :"２" %>
+				   		<%= f.radio_button :satisfaction, :"３" %>
+				   		<%= f.label :"３" %>
+				   		<%= f.radio_button :satisfaction, :"４" %>
+				   		<%= f.label :"４" %>
+				      <%= f.radio_button :satisfaction, :"５" %>
+				      <%= f.label :"５" %>
+				      <%= f.radio_button :satisfaction, :"６" %>
+				      <%= f.label :"６" %>
+				      <%= f.radio_button :satisfaction, :"７" %>
+						  <%= f.label :"７" %>
+						  <%= f.radio_button :satisfaction, :"８" %>
+						  <%= f.label :"８" %>
+						  <%= f.radio_button :satisfaction, :"９" %>
+						  <%= f.label :"９" %>
+						  <%= f.radio_button :satisfaction, :"１０" %>
+						  <%= f.label :"１０" %><br>
+				   </div>
+
+					 <%= f.label :'Q３：〇〇イベントの満足度の理由を教えてください' %>
+					 <%= f.text_area:reason_for_satisfaction, class:"form-control" %><br>
+
+					 <%= f.label :'Q４：参加決意' %><br>
+
+					 <div class="mb-3">
+					 		<%= f.radio_button :participation, :"参加したい", checked: true %>
+						  <%= f.label :"参加したい" %>
+						  <%= f.radio_button :participation, :"参加したくない" %>
+						  <%= f.label :"参加したくない" %><br>
+				   </div>
+
+					 <%= f.label :'Q５：〇〇イベントに対するご意見・ご要望がありましたら、ご自由にお書きください。' %>
+					 <%= f.text_area:impressions, class:"form-control" %><br>
+
+					 <%= f.hidden_field :event_questionnaires_question_id %>
+
+					 <%= f.submit "アンケート回答内容確認", class:"btn btn-success" %>
+					<% end %>
+    	</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<!-- 管理者側ヘッダー内容 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Special Event</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="shadow-sm" style="background-color: black;">
+        <div class ="container">
+          <nav class="navbar navbar-expand-lg navbar-light" >
+            <%= link_to root_path do %>
+              <%= image_tag asset_path( 'logo-transparent.png'), size: '150x150' %>
+            <% end %>
+            <ul class="navbar-nav ml-auto">
+              <% if admin_signed_in? %>
+                <li class="nav-item"><%= link_to "イベント一覧",  admin_events_path, class: 'nav-link text-light'  %></li>
+                <li class="nav-item"><%= link_to "チケット注文履歴", admin_ticket_orders_path, class: 'nav-link text-light'  %></li>
+                <li class="nav-item"><%= link_to "アンケート一覧", admin_event_questionnaires_questions_path, class: 'nav-link text-light'  %></li>
+                <li class="nav-item"><%= link_to "ジャンル一覧", admin_genres_path, class: 'nav-link text-light'  %></li>
+                <li class="nav-item"><%= link_to "会員一覧", admin_customers_path, class: 'nav-link text-light'  %></li>
+                <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-light'  %></li>
+              <% end %>
+            </ul>
+          </nav>
+      </div>
+    </header>
+    <div class ="image">
+      <main class="mb-auto">
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>

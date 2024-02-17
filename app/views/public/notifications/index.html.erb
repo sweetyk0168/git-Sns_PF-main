@@ -1,0 +1,28 @@
+<!-- 通知一覧 -->
+<div class= "container">
+  <div class= "row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+      <h4>通知一覧<span class= "text-warning"><i class="fa-sharp fa-solid fa-bell"></i></span></h4>
+      <% if @notifications.present? %>
+        <table class='table'>
+          <% @unchecked_notifications.each do |notification| %>
+            <tr class= "table_group">
+              <%= render notification.action_type, notification: notification %>
+            </tr>
+          <% end %>
+          <% @checked_notifications.each do |notification| %>
+            <tr class= "table_group2">
+              <%= render notification.action_type, notification: notification %>
+            </tr>
+          <% end %>
+        </table>
+
+      <% else %>
+        <div class="text-center">
+        通知はありません
+      <% end %>
+        </div>
+    </div>
+  </div>
+</div>

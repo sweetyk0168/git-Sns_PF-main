@@ -1,0 +1,11 @@
+<!-- いいね通知内容 -->
+<td>
+  <%= image_tag notification.subject.customer.get_profile_image(30,30),class: "img_icon" %>
+  <%= link_to notification.subject.customer.last_name, customer_path(notification.subject.customer) %>
+  さんがあなたの
+  <%= link_to '投稿', post_path(notification.subject.post) %>
+  にいいねしました！(<%= notification.subject.created_at.strftime('%Y/%m/%d') %>)
+  <%= link_to checked_notification_path(notification), method: :patch do %>
+    <span class=text-success><i class="fa-solid fa-check"></i></span>
+  <% end %>
+</td>

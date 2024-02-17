@@ -1,0 +1,129 @@
+<!-- イベント情報詳細画面 -->
+<div class="container height px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-20 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="mt-3">■イベント情報詳細</h3>
+          <table class="table table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>イベント名</th>
+                <th>イベント説明</th>
+                <th>イベントURL</th>
+                <th>ジャンル</th>
+                <th>投稿ステータス</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= @event.name %></td>
+                <td><%= @event.introduction %></td>
+                <td><%= @event.url_strings %></td>
+                <td><%= @event.genre.name %></td>
+                <td>
+                  <% if @event.post_status %>
+                    投稿中
+                  <% else %>
+                    投稿完了
+                  <% end %>
+                </td>
+                <td><%= link_to '編集する', edit_admin_event_path(@event.id), class:"btn btn-success" %></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="mt-3">■グッズ情報一覧</h3>
+          <div class="mb-3">
+            <%= link_to '新規作成はこちらから' , new_admin_event_good_path(@event), class:"btn btn-primary" %>
+          </div>
+
+          <table class="table table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>グッズ名</th>
+                <th>投稿状況</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @goods.each do | good | %>
+                <tr>
+                  <td><%= good.id %></td>
+                  <td><%= link_to good.name, admin_event_good_path(@event, good) %></td>
+                  <td>
+                    <% if good.post_status %>
+                      投稿中
+                    <% else %>
+                      投稿完了
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @goods %>
+
+          <h3 class="mt-3">■イベントチケット情報一覧</h3>
+            <div class="mb-3">
+              <%= link_to '新規作成はこちらから' , new_admin_event_event_ticket_path(@event), class:"btn btn-primary" %>
+            </div>
+
+            <table class="table table-bordered">
+              <thead class="table-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>イベントチケット名</th>
+                  <th>販売ステータス</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @event_tickets.each do | event_ticket | %>
+                  <tr>
+                    <td><%= event_ticket.id %></td>
+                    <td><%= link_to event_ticket.ticket_name, admin_event_event_ticket_path(event_ticket.event, event_ticket) %></td>
+                    <!--<td><%#= link_to event_ticket.ticket_name, admin_event_event_ticket_path(event_ticket) %></td>-->
+                    <td>
+                      <% if event_ticket.sales_status %>
+                        販売中
+                      <% else %>
+                        販売完了
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <%= paginate @event_tickets %>
+
+          <h3 class="mt-3">■イベント投稿情報一覧</h3>
+            <div>
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th>イベント投稿タイトル</th>
+                    <th>イベント投稿内容</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if @posts.present? %>
+                    <% @posts.each do | post | %>
+                      <tr>
+                        <td><%= post.title %></td>
+                        <td><%= post.body %></td>
+                        <td><%= link_to '削除する', admin_post_path(post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+                        <!--<td><%#= event_repos.genre.name %></td>-->
+                      </tr>
+                    <% end %>
+                  <% else %>
+                    <p>まだイベント投稿がありません</p>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+        <% paginate @posts %>
+      </div>
+    </div>
+  </div>
+</div>

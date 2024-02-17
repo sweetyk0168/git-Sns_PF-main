@@ -1,0 +1,16 @@
+<!-- 退会確認画面 -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="p-0 mb-0">本当に退会しますか？</h3><br>
+        <p>退会すると、会員登録情報や</br>
+           これまでの投稿や閲覧履歴が閲覧できなくなります。</br>
+           退会する場合は、「退会する」をクリックして下さい。</p>
+
+          <%= link_to '退会しない', customers_path,class: "btn btn-primary" %>
+          <%=link_to '退会する', customers_confirm_withdraw_path, method: :patch, "data-confirm" => "本当に退会しますか？", class:"btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

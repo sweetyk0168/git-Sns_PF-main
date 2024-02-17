@@ -1,0 +1,56 @@
+<!-- 投稿詳細画面 -->
+<div class="card-list-container py-5">
+	<div class="card w-50 mx-auto mt-4 shadow-lg">
+		<div class="card-body">
+			<div class="row">
+			 	<div class="col-3">
+					<%= image_tag @post.customer.get_profile_image(100,100) %>
+					<span><i class="fas fa-user"></i><%= @post.customer.last_name %></span>
+	  		</div>
+
+		  	<div class="col-9">
+		  		<p class="card-title"><%= @post.title %></p><br>
+
+		  		<% if @post.event.present? && @post.body.present? %>
+		  			<%= @post.body %><br>
+		  		<% elsif @post.event.present? %>
+		  		    <%= render 'public/events/show', event: @post.event %>
+					<% elsif @post.event_questionnaires_question.present? %>
+	  				<label>▽イベントアンケートはこちらから</label><br>
+	  				<%= link_to @post.event_questionnaires_question.title, new_event_questionnaires_answer_path(question_id: @post.event_questionnaires_question.id) %><br>
+					<% else %>
+						<%= @post.body %><br>
+	  			<% end %>
+
+					<%= image_tag @post.get_image(150,150), class:"card-img-top"; %><br>
+
+		  		<% if @post.favorited?(current_customer) %>
+	  				<!--一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ -->
+	  				<%= link_to post_favorites_path(@post.id), method: :delete do %>
+	    				<span style="color:red;">❤いいね！︎</span>
+	  				<% end %>
+		  		<% else %>
+	  				<!-- # 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ -->
+	  				<%= link_to post_favorites_path(@post.id), method: :post do %>
+	    				<span>❤︎いいね！</span>
+	  				<% end %>
+		  		<% end %><br>
+
+	  			<% if customer_signed_in? %>
+	      		<%= form_with(model: [@post, @post_comment], local: true) do |f| %>
+	        		<%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %><br>
+
+	        		<%= f.submit "送信", class:"btn btn-lg btn-block btn-info mt-4"%>
+	      		<% end %>
+	  			<% end %>
+
+	  			<label>💭コメント一覧</label><br>
+	  			<% @post_comments.each do |post_comment| %>
+	      		<%= post_comment.customer.last_name unless post_comment.customer.blank? %><br />
+	      		<%= post_comment.comment %>
+	  			<% end %>
+		  	</div>
+			</div>
+		</div>
+ 	</div>
+</div>

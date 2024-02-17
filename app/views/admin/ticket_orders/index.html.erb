@@ -1,0 +1,33 @@
+<!-- イベントチケット注文履歴 -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="p-3 my-2">■イベントチケット注文履歴</h3>
+          <table class="table table-bordered">
+            <tr>
+              <th class="table-dark">購入日時</th>
+              <th class="table-dark">購入者</th>
+              <th class="table-dark">注文個数</th>
+              <th class="table-dark">注文ステータス</th>
+            </tr>
+            <% @ticketorders.each do |ticketorder| %>
+              <% @total_amount = 0 %>
+              <tr>
+                <td><%= link_to ticketorder.created_at.strftime("%Y/%m/%d %H:%M:%S"), admin_ticket_order_path(ticketorder.id) %></td>
+                <td><%= ticketorder.customer.last_name %><%= ticketorder.customer.first_name %></td>
+                <td>
+                  <% ticketorder.ticket_order_details.each do |ticket_order_detail| %>
+                    <% @total_amount += ticket_order_detail.amount %>
+                  <% end %>
+                  <%= @total_amount %>
+                </td>
+                <td><%= ticketorder.order_status %></td>
+              </tr>
+            <% end %>
+          </table>
+        <%= paginate @ticketorders %>
+      </div>
+    </div>
+  </div>
+</div>

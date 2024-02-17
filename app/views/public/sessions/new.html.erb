@@ -1,0 +1,34 @@
+<!-- SNS会員ログイン画面 -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="bg-light py-5 px-5">
+      <h1 class="my-3">ログイン</h1>
+        <p>会員の方はこちらからログインしてください</p>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="mb-3">
+            <%= f.label :"メールアドレス" %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :"パスワード" %><br />
+            <%= f.password_field :password, autocomplete: "current-password" %>
+          </div>
+          <%# if devise_mapping.rememberable? %>
+          <!--<div class="field">-->
+          <!--  <%#= f.check_box :remember_me %>-->
+          <!--  <%#= f.label :remember_me %>-->
+          <!--</div>-->
+          <%# end %>
+          <p><%= link_to '会員登録がお済みでない方はこちら', new_customer_registration_path %></p><br>
+
+          <div class="mb-5">
+            <%= f.submit "ログイン", class: 'btn btn-primary' %>
+            <%= link_to 'ゲストログイン（閲覧用）', customers_guest_sign_in_path, method: :post, class:"btn btn-primary" %>
+          </div>
+        <% end %>
+      <%#= render "public/shared/links" %>
+    </div>
+  </div>
+</div>

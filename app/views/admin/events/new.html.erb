@@ -1,0 +1,43 @@
+<!-- イベント情報新規登録画面 -->
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-20 col-sm-30 mx-10 mx-sm-auto">
+      <div class="bg-light py-5 px-5">
+        <h3 class="p-4 mb-0">■イベント情報新規登録</h3>
+          <% if @event.errors.any? %>
+            <%= @event.errors.count %>errors occurred
+              <ul>
+                <% @event.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+          <% end %>
+          <div class="form-body p-4">
+            <%= form_with model: @event, url:admin_events_path do |f| %>
+              <%= f.label :'■イベント名' %>
+              <%= f.text_field:name, class:"form-control", autofocus:true, placeholder:"イベントタイトルをここに入力してください" %><br>
+
+              <%= f.label :'■イベント説明文' %>
+              <%= f.text_area:introduction, class:"form-control", rows:"3", autofocus:true, placeholder:"イベント説明文をここに入力してください" %><br>
+
+              <%= f.label :'■イベントURL' %>
+              <%= f.text_field:url_strings, class:"form-control", placeholder:"イベントURLをここに入力してください" %><br>
+
+              <%= f.label :'■ジャンル' %><br>
+              <%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: "--選択してください--"} %><br>
+
+              <div class="my-3">
+                <%= f.label :'■投稿ステータス' %><br>
+                <%= f.radio_button :post_status, true %>
+                <%= f.label :post_status,"投稿中",{value: :true,style: "display: inline-block;"} %>
+                <%= f.radio_button :post_status, false %>
+                <%= f.label :post_status, "投稿完了",{value: :false,style: "display: inline-block"} %><br>
+              </div>
+
+              <%= f.submit '新規登録', class:"btn btn-success" %>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
